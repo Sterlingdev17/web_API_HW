@@ -2,14 +2,22 @@ var questions = [
     {
         title: "Example Question 1:",
         choices: ["Choice 1", "Choice 2", "Choice 3", "Choice 4"],
-        answer: "answer from choices"
+        answer: "Choice 3"
     },
     {
         title: "Example Question 2:",
         choices: ["Choice 1", "Choice 2", "Choice 3", "Choice 4"],
-        answer: "answer from choices"
+        answer: "Choice 1"
+    },
+    {
+        title: "Example Question 3:",
+        choices: ["Choice 1", "Choice 2", "Choice 3", "Choice 4"],
+        answer: "Choice 2"
     }
 ];
+
+var questionIndex = 0;
+var score = 0
 
 // create htmml
 
@@ -21,23 +29,50 @@ var resuttAnswer = document.createElement("h4")
 
 // function to start the quiz
 function startQuiz() {
-    var questions = $("<h1>").text("what is your name");
-    $(".container").prepend(questions);
+    $(".btn2").empty()
     myTimer();
     createChoices();
+    createQuestions();
     
 }
+$(".nextButton").on("click", nextQuestions);
+function nextQuestions(){
+    createChoices();
+    createQuestions();
+}
+
 
 function createChoices(){
-    for (var i = 0; i < questions[0].choices.length; i++){
-       var answerBtn = $("<button>").text(questions[0].choices[i]);
+    for (var i = 0; i < questions[questionIndex].choices.length; i++){
+       var answerBtn = $("<button>").attr("class", "btn").text(questions[0].choices[i]);
        $(".container").append(answerBtn);
        $(answerBtn).on("click", function(){
+           if (questions[questionIndex].answer === $(this).text()){
+               score++;
+               console.log(score);
+           }
+               
+           
            $(".container").empty()
+           questionIndex++;
+        if (questions.length === questionIndex ) {
+            alert(score + " out of 3")
+        }
+           
        })
-        console.log("this works" + i);
+        
+
     }
  
+    
+
+}
+function createQuestions(){
+    
+    var question = $("<h1>").text(questions[questionIndex].title);
+    $(".container").prepend(question);
+
+   
     
 
 }
