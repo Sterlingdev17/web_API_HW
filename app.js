@@ -29,30 +29,27 @@ var resuttAnswer = document.createElement("h4")
 
 // function to start the quiz
 function startQuiz() {
-    $(".btn2").empty()
+    
     myTimer();
     createChoices();
     createQuestions();
     
 }
-$(".nextButton").on("click", nextQuestions);
-function nextQuestions(){
-    createChoices();
-    createQuestions();
-}
 
+
+// loop for answers 
 
 function createChoices(){
     for (var i = 0; i < questions[questionIndex].choices.length; i++){
        var answerBtn = $("<button>").attr("class", "btn").text(questions[0].choices[i]);
+      
+      // create a button to start
        $(".container").append(answerBtn);
        $(answerBtn).on("click", function(){
            if (questions[questionIndex].answer === $(this).text()){
                score++;
                console.log(score);
            }
-               
-           
            $(".container").empty()
            questionIndex++;
         if (questions.length === questionIndex ) {
@@ -60,26 +57,16 @@ function createChoices(){
         }
            
        })
-        
-
-    }
- 
-    
+    }  
 
 }
 function createQuestions(){
     
     var question = $("<h1>").text(questions[questionIndex].title);
-    $(".container").prepend(question);
-
-   
-    
-
+    $(".container").prepend(question);   
 }
 
-
-
-
+// once start button push clock start
 $(".startBtn").on("click", startQuiz);
 
 var timer = 15
@@ -97,10 +84,6 @@ function myTimer() {
             clearInterval(timeset);
 
         }
-
     }, 1000);
-
-
-
 } 
 
